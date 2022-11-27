@@ -1,0 +1,53 @@
+.a {
+    /* flexbox */
+    /* 박스 내 요소 사이의 공간 배분과 정렬 기능을 위한 1차원 레이아웃, 한번에 하나의 행이나 열만을 다룬다. */
+    /* flexbox은 flexcontainer라고도 하는데, 이를 만들기 위해서는 display:flex;를 적용해야한다. */
+    /* 기본적으로 요소들을 가로 정렬한다. */
+    display: flex;
+
+    /* flexbox에는 가로 주축과 세로 교차축이 존재한다. */
+    /* 주축을 사용하는 방향을 지정하는 속성 flex-direction */
+
+    /* 기본값, 주축은 행, 컨텐츠의 방향과 동일하게 */
+    flex-direction: row;
+    /* 주축은 행, 컨텐츠의 방향과 반대로 */
+    flex-direction: row-reverse;
+    /* 주축은 열, 컨텐츠의 방향과 동일하게 */
+    flex-direction: column;
+    /* 주축은 열, 컨텐츠의 방향과 반대로 */
+    flex-direction: column-reverse;
+
+    /* 주축을 배치하는 방법 justify-content */
+    /* 주축을 기준으로 상단 중앙에 배치 */
+    justify-content: center;
+    /* 주축 기준 시작지점 혹은 끝지점에 배치 */
+    justify-content: flex-start;
+    justify-content: flex-end;
+
+    /* 각 하위 요소들 사이에 동일한 크기의 여백을 넣어 띄엄띄엄 배치 */
+    justify-content: space-around;
+    /* space-around와 동일하지만, 전체 요소들의 좌우 끝에는 여백을 넣지 않는다. */
+    justify-content: space-between;
+
+    /* 교차축의 배치 방법 align-items */
+    /* 세로 기준의 배치 방법을 결정한다. */
+    align-items: flex-start;
+    align-items: flex-end;
+    align-items: center;
+
+    /* 교차축의 개별요소 배치 방법 align-self */
+    /* 기준 시작지점으로 */
+    align-self: flex-start;
+    /* 기준 끝지점으로 */
+    align-self: flex-end;
+
+    /* 줄 바꿈 여부 flex-wrap */
+    /* flex 컨테이너의 하위 요소가 상위 요소보다 크기가 커진다면? 상위요소의 크기에 맞춰 크기를 자동으로 줄인다. */
+    /* 이를 변경하는 것이 align-self */
+
+    /* 기본값은 no-wrap */
+    /* wrap으로 설정할 경우, 상위 요소 밖으로 나가진 않고 한 행에 넣을 수 없는 요소는 다음 줄로 밀어낸다. */
+    flex-wrap: wrap;
+    /* wrap과 동일하지만, 요소 배치 방향을 반대로. */
+    flex-wrap: wrap-reverse;
+}

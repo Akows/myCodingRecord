@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jsBasic06</title>
+</head>
+<script>
+    // 배열
+    // 비원시 데이터의 한 종류
+
+    // 배열 만들기
+    // 생성자
+    let arr = new Array();
+    // 배열 리터럴
+    let arr2 = [];
+
+    arr2.push(0);
+    arr2.push(1);
+    arr2.pop(1);
+    arr2.push(1);
+
+    console.log(arr2);
+    console.log(arr2.length);
+
+
+    // 반복문
+    const arr3 = [1, 2, 3];
+
+    for(let i = 0; i < arr3.length; i++) {
+        console.log(arr3[i]);
+    }
+
+    // 객체 안의 데이터를 순회하여 전체 출력해보기
+    let object = {
+        key1: 'value1',
+        key2: 'value2'
+    };
+
+    // 자바스크립트 내장 함수를 이용한다.
+    const keys = Object.keys(object);
+
+    // key와 value를 모두 순회하는 방법.
+    for(let i = 0; i < keys.length; i++) {
+        const objectKey = keys[i];
+        const objectValue = object[objectKey];     
+
+        console.log(objectKey);        
+        console.log(objectValue);
+    }
+
+    // 혹은 내장 함수를 이용하면 value값만 따로 추출할 수 있다.
+    const values = Object.values(object);
+
+    for(let i = 0; i < values.length; i++) {
+        console.log(values[i]);        
+    }
+
+</script>
+<body>
+    1강, 자바스크립트 기본
+</body>
+</html>

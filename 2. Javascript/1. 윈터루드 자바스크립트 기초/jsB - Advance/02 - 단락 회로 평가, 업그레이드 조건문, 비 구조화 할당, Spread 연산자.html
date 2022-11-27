@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jsAdvance02</title>
+</head>
+<script>
+    // 단락 회로 평가
+    // 논리연산자 && || !
+    // &&의 경우, 앞의 조건이 false면 뒤의 조건은 검증하지 않고 연산을 종결한다.
+    // ||의 경우, 앞의 조건이 true면 마찬가지로 연산을 종결한다.
+
+    // Truthy & Falsy 값을 이용한 단락 회로 평가.
+    const getName = (person) => {
+        const name = person && person.name;
+        // Falsy 값이 대입될 경우에는, 앞의 값이 false이므로 뒤의 값이 반환된다.
+        return name || '에러!';
+    };
+
+    let person = { name: '이유승' };
+    const name = getName(person);
+    console.log(name);
+
+    // 업그레이드 조건문
+    // 업그레이드 된 스마트 조건문
+    const foodList = ['김치', '불고기', '비빔밥'];
+
+    function isKFood (food) {
+        // if (food === '김치' || food === '불고기' || food === '비빔밥')
+        //     return true
+
+        // 그런데 조건식이 많다면 논리연산자로 일일이 조건식을 써넣을 수 없다.
+        if (foodList.includes(food))
+            return true         
+
+        return false;
+    }
+
+    console.log(isKFood('김치'));
+
+
+    // 객체를 사용하는 경우에도 마찬가지. if문을 무한하게 사용하는 것보다 더 효율적인 조건문 사용이 가능하다.
+    const mealList = {
+        한식: '김치',
+        일식: '스시'
+    };
+
+    const checkFood = (mealType) => {
+        return mealList[mealType] || '걸식';
+    }
+
+    console.log(checkFood('한식'));
+
+    // 비 구조화 할당
+    let arr = ['one', 'two', 'three'];
+
+    // let one = arr[0];
+    // let two = arr[1];
+    // let three = arr[2];
+
+    // 위 코드를 간단하게 한줄로 처리할 수 있다.
+    // let [one, two, three] = arr;
+
+    // console.log(one, two, three);
+
+    let numA = 1;
+    let numB = 2;
+
+    // 순서를 바꿀 수 있다.
+    [numA, numB] = [numB, numA]
+    console.log(numA, numB);
+
+    // 객체의 경우 비 구조화 할당이 key값을 기준으로 실행된다.
+    let object = {one: 'one', two: 'two', three: 'three', na: 'na'};
+
+    let { na: my, two, three, one} = object;
+
+    console.log(one, two, three, na);
+
+    // Spread 연산자
+    const cookies = {
+        base: 'cookie',
+        madeIn: 'korea'
+    };
+
+    const chocoCookie = {
+        ...cookies,
+        toping: 'choco'
+    };
+
+    const berryCookie = {
+        ...chocoCookie,
+        toping: 'berry',
+        color: 'red'
+    };
+
+    const topingCookie = ['쿠키', '초코쿠키'];
+    const noTopingCookie = ['초코칩쿠키', '딸기칩쿠키'];
+
+    const allCookies = [...topingCookie, ...noTopingCookie];
+
+    console.log(cookies);
+    console.log(chocoCookie);
+    console.log(berryCookie);
+    console.log(allCookies);
+    
+
+</script>
+<body>
+    2강, 자바스크립트 심화
+</body>
+</html>

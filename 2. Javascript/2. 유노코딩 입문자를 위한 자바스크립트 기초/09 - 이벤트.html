@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    // Event
+    const a = window.document.querySelector('a');
+
+    // 여기서 함수는 호출용도가 아니라, 대입용도이기 때문에 ()를 붙이면 안된다.
+    a.onclick = clickevent;
+    a.onkeydown = clickevent;
+    a.onclick = clickevent;
+
+    function clickevent () {
+        // ...
+    };
+
+    // 이벤트 핸들러
+    a.addEventListener('click', clickevent);
+
+</script>
+<body>
+    
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jsBasic07</title>
+</head>
+<script>
+    // 자바스크립트 배열의 내장함수
+
+    const arr = [1, 2, 3, 4];
+    const arr2 = [];
+
+    // forEach 
+    arr.forEach((element) => console.log(element));
+
+    arr.forEach(function (element) {
+        arr2.push(element * 2);
+    });
+    
+    console.log(arr2);
+
+    // 배열의 데이터를 가공하여 새로운 배열에 넣는 방법.
+    // push보다 쉬운 map
+
+    // 전체 배열을 순환하며 원하는 값으로 가공.
+    const newArr = arr.map((element) => {
+        return element * 2;
+    })
+
+    console.log(newArr);
+
+    // 배열의 특정 값을 확인하는 함수 includes
+    const arr3 = [1, 2, 3, 4];
+    let number = 3;
+
+    console.log(arr3.includes(number));
+
+    // index를 반환하는 함수 indexOf
+    // 배열에 없으면 -1을, 있으면 index를 반환한다.
+    console.log(arr3.indexOf(number));
+
+    // 그런데 객체를 포함한 배열에서는? findIndex
+    const object = [
+        {
+            key: 'value1'
+        },
+        {
+            key: 'value2'
+        },
+        {
+            key: 'value2' // 배열에 해당값이 중복된다면 가장 앞에 있는 index가 반환된다.
+        },
+    ];
+    
+    console.log(object.findIndex((element) => element.key === 'value2'));
+
+    // 이를 이용하여 value를 반환받는 방법.
+    // 반환받은 index를 배열에 다시 대입하여 value를 찾는다.
+    console.log(
+        object
+        [
+            object.findIndex((element) => element.key === 'value2')
+        ]
+        );
+
+    // 조건은 동일하지만 value 그 자체를 반환하는 find.
+    console.log(object.find((element) => element.key === 'value2'));
+
+    // 배열의 전달된 조건에 맞는 요소를 배열 방식으로 반환하는 filter
+    const object2 = [
+        {
+            number: 1, key: 'value1'
+        },
+        {
+            number: 2, key: 'value2'
+        },
+        {
+            number: 3, key: 'value3'
+        },
+    ];
+
+    console.log(object2.filter((element) => element.key === 'value2'));
+
+    // 배열을 알맞게 잘라주는 slice.
+    console.log(object2.slice(0, 1));
+
+    // 배열을 알맞게 붙여주는 concat.
+    const object3 = [
+        {
+            number: 4, key: 'value4'
+        },
+        {
+            number: 5, key: 'value5'
+        },
+        {
+            number: 6, key: 'value6'
+        },
+    ];
+
+    console.log(object2.concat(object3));
+
+    // 배열을 정렬해주는 sort
+    // sort는 결과값을 저장할 새로운 배열을 만들지 않고, 기존 배열의 데이터를 직접 수정한다.
+    let chars = ['나', '다', '가'];
+    let numbers = [3, 1, 2];
+
+    console.log(chars.sort());
+    console.log(numbers.sort());
+
+    // sort의 기본 숫자 정렬 기준.
+    const compare = (a, b) => {
+        // a가 큰 경우, 자리를 뒤로 보낸다.
+        if (a > b) {
+            return 1;
+        }
+        // 작은 경우, 자리는 앞으로 보낸다.
+        if (a > b) {
+            return -1;
+        }
+        // 같은 경우, 자리를 움직이지 않는다.
+        return 0;
+    };
+
+    console.log(numbers.sort(compare));
+
+    // 모든 요소를 하나의 문자열로 합쳐주는 join.
+    const arr4 = [1, '안녕', 3, '하세요'];
+
+    console.log(arr4.join(' '));
+
+</script>
+<body>
+    1강, 자바스크립트 기본
+</body>
+</html>

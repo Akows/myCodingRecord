@@ -1,0 +1,124 @@
+p {
+    color: red;
+}
+
+
+/* 텍스트 속성 */
+.a{
+    /* 글꼴을 정의하는 font-family */
+    /* 여러 글꼴을 정의해두면, 앞 글꼴이 브라우저에 지원되지 않을 경우 뒤 글꼴을 적용하게 된다. */
+    font-family: serif, monospace;
+
+    /* 글자의 크기를 정의하는 font-size */
+    /* 단위 기준 px, rem, em */
+    /* px 모니터 화소 하나를 절대기준 단위 */
+    /* rem 최상위 태그의 font-size에 대응하는 상대기준 단위 */
+    /* em 상위 태그의 font-size에 대응하는 상대기준 단위 */
+    font-size: 10px;
+
+    /* 글자의 정렬 방식을 정의하는 text-align */
+    /* 좌측left, 우측right, 가운데center, 양끝 정렬justify */
+    /* 양끝 정렬의 경우 마지막 줄은 정렬되지 않는다. */
+    text-align: center;
+
+    /* 블록 레벨 vs 인라인 */
+    /* 각 태그들은 블록 속성 혹은 인라인 속성을 기본적으로 갖고 있으나 이를 CSS 속성으로 변경해줄 수 있다. */
+    display: inline;
+    display: block;
+
+    /* 인라인 속성을 기본으로 갖지만, 블록 속성도 가질 수 있게 해준다. */
+    /* 인라인 속성은 데이터 본연의 실제 크기만을 갖게 하는데, 인라인-블록을 지정하면 크기를 임의로 지정할 수 있게 된다. */
+    display: inline-block;
+    /* 화면에 표시하지 않는다, 영역도 차지하지 않는다. */
+    /* visibility는 영역은 차지하지만 표시만 안하는 속성 */
+    display: none;
+    visibility: hidden;
+
+    /* border */
+    /* 여러 속성을 동시에 정의할 수 있는데, 이를 단축속성이라고 칭한다. */
+    border: 1px dashed black;
+
+    /* 혹은 각 속성을 따로따로 사용해도 된다. */
+    border-color: black;
+    border-width: 1px;
+    border-style: dashed;
+
+    /* box-sizing */
+    /* 기본값, 너비와 높이가 컨텐츠 영역만 포함한다. */
+    box-sizing: content-box;
+    /* 너비와 높이가 여백 및 테두리까지 포함한다. */
+    box-sizing: border-box;
+
+    /* background 속성 */
+    background-color: black;
+    background-image: url('/');
+    /* left, right, top, bottom, center 사용이 가능하다. 여러 속성을 섞는 것도 가능. */
+    background-position: left top;
+    /* 가로 세로를 따로 설정하거나, cover로 적절한 비율을 유지하며 영역을 채울수 있다. */
+    /* contain은 원래 비율을 유지하며 영역 내에서 최대 사이즈를 유지한다. */
+    background-size: auto;
+    background-repeat: repeat;
+
+    /* float */
+    /* 문서의 일반적인 흐름에서 제외시키고, 컨테이너의 좌측 혹은 우측에 배치된다. */
+    /* 다만 필요한 만큼의 공간은 차지한다. */
+    float: left;
+    float: right;
+
+    /* clear */
+    /* float 요소 이후 표시되는 요소들을 float 아래로 내려가게 할 수 있다. */
+    clear: both;
+    clear: left;
+    clear: right;
+
+    /* position */
+    /* 요소의 배치 방법을 결정하는 속성*/
+    /* 오프셋, 위치를 얼마간 이동시키는 것. */
+
+    /* 기본, 일반적인 문서 흐름에 맞춘다. */
+    position: static;
+    /* 문서 흐름을 따르되, 상하좌우 위치 값에 따라 오프셋을 적용한다. */
+    position: relative;
+    /* 문서 흐름에서 제외하고, 가장 가까운 position 지정 요소에 대해 상대적으로 오프셋을 적용한다. */
+    position: absolute;
+    /* 문서 흐름에서 제외하고, 지정된 위치에 고정한다. */
+    position: fixed;
+    /* 스크롤 동작이 존재하는 가장 가까운 요소에 대해 오프셋을 적용한다. */
+    position: sticky;
+}
+
+#positionstatic {
+    background-color: red;
+
+    position: static;
+}
+#positionrelative {
+    background-color: orange;
+
+    /* 원래 위치에서 위 100px, 좌 100px 움직여서 배치하라. */
+    /* 다만 태그의 원래 위치는 유지된다. 컨텐츠의 위치만 움직이는 것. */
+    position: relative;
+    top: 100px; left: 100px;
+}
+#positionabsolute {
+    background-color: yellow;
+
+    /* 문서 흐름에서 제외하고, 자기 자신과 가장 가까운 position이 지정된 요소를 기준으로 삼는다. */
+    /* 만약 상위 요소에 position이 지정된 요소가 없으면, 최상위 html 태그를 기준으로 삼는다. */
+    position: absolute;
+    top: 800px; left: 300px;
+}
+#positionfixed {
+    background-color: green;
+
+    /* absolute와 비슷해보이지만, fixed는 다른 요소와 관계없이 지정한 위치에서 절대 움직이지 않는다. */
+    position: fixed;
+    top: 500px; left: 300px;
+}
+#positionsticky {
+    background-color: blue;
+
+    /* 일반적인 문서 흐름에 포함되고, 스크롤이 sticky 요소가 배치된 위치에 도달하면 그 곳에 부착된다. */
+    position: sticky;
+    top: 100px; left: 100px;
+}

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<!-- 실제 브라우저 화면에 표시될 내용을 입력하는 태그 body -->
+<!-- 텍스트 태그, 이미지 태그, 각종 UI 태그 등으로 구성된다. -->
+<body>
+    
+    <!-- 하나의 문단을 나타나는 태그 p -->
+    <p>문단1</p>
+    <p>문단2</p>
+
+    <!-- 공백 -->
+    <p>공&nbsp;백</p>
+
+    <!-- 굵은 글자 -->
+    <strong>abc1</strong>
+    <strong>abc2</strong>
+
+    <!-- 블록 요소와 인라인 요소 -->
+    <!-- 자기가 속한 영역의 너비를 모두 차지한다. vs 자기에게 필요한 공간만 차지한다. -->
+    <p>여기는 블록 요소 <strong>여기는 인라인 요소</strong></p>
+    <p>여기는 블록 요소 <em>여기는 인라인 요소</em></p>
+    <p>여기는 블록 요소 <mark>여기는 인라인 요소</mark></p>
+
+    <!-- 컨테이너 태그 -->
+    <!-- 단지 다른 요소 여럿을 묶어 관리하게 편하게 만드는 역할을 하는 태그. -->
+
+    <!-- 블록 레벨 컨테이너 -->
+    <div>블록</div>
+    <div>블록</div>
+
+    <!-- 인라인 컨테이너 -->
+    <span>인라인</span>
+    <span>인라인</span>
+
+    <!-- 전역 속성 -->
+    <div id="고유한 이름을 부여하는 식별자, 하나의 id는 하나의 태그에만 사용가능하다.">id</div>
+    <div class="요소를 그룹별로 묶을 수 있는 식별자">class</div>
+    <div style="width: 100px;">style</div>
+    <div title="추가 정보를 제공하는 텍스트, 툴팁 역할을 수행한다.">title</div>
+
+    <!-- a 태그 -->
+    <!-- 현재 페이지에서 이동 -->
+    <a href="/" target="_self">_self</a>
+    <!-- 새 탭을 열어 이동 -->
+    <a href="/" target="_blank">_blank</a>
+    <!-- 전화번호 연결 -->
+    <a href="tel:000-0000-0000" target="_self">telephone</a>
+    <!-- 이메일 연결 --> <!-- 참고 https://m.blog.naver.com/tokyomari/221912264344 -->
+    <a href="mailto:abc@abc.com" target="_blank">email</a>
+
+    <!-- 항목 태그 -->
+    <!-- 정렬 항목 ol -->
+    <ol>
+        <li>항목1</li>
+        <li>항목2</li>
+    </ol>
+
+    <!-- 비정렬 항목 ul -->
+    <ul>
+        <li>항목1</li>
+        <li>항목2</li>
+    </ul>
+
+    <!-- 입력 태그 input --> <!-- 참고 http://www.tcpschool.com/html-tag-attrs/input-type -->
+    <!-- name 속성으로 식별자를 더할 수 있다. -->
+    <input type="text" name="문자입력">    <br>
+    <input type="button" name="버튼" value="버튼이름">    <br>
+    <input type="checkbox">    <br>
+    <input type="color">    <br>
+    <input type="date">    <br>
+    <input type="email">    <br>
+    <input type="file">    <br>
+    <input type="week">    <br>
+    <input type="search">    <br>
+    <input type="radio">    <br>
+    <input type="range" min="0" max="100" step="1">
+
+    <hr>
+
+    <!-- select 태그 -->
+    <select name="" id="">
+        <option value="">1</option>
+        <option value="">2</option>
+        <option value="" selected>3</option>
+        <option value="">4</option>
+    </select>
+
+    <hr>
+
+    <!-- textarea -->
+    <!-- input 태그는 1줄의 문자만, textarea는 여러 줄 입력이 가능하다. -->
+    <textarea name="" id="" cols="30" rows="10">기본으로 입력되어 있는 정보</textarea> <hr>
+
+    <!-- 데이터를 서버에 전송하는 form 태그 -->
+    <form action="" method="">
+        <input type="text">
+        <br>
+        <input type="password">
+        <br>
+        <input type="submit">
+    </form>    
+
+</body>
+</html>

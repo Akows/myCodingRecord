@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jsAdvance05</title>
+</head>
+<script>
+    // API 호출하기.
+    // 응용 프로그램에서 사용할 수 있도록 OS나 프로그래밍 언어에서 제공하는 기능을 제어할 수 있게 만든 인터페이스.
+    // API를 호출하는 것 = 클라이언트에서 서버에 요청을 주고 서버가 클라이언트에 데이터를 전달하는 행위.
+
+    // 그런데 서버에서 데이터를 언제 되돌려주는가?
+    // 이를 알 수 없으므로 API 호출은 언제나 비동기적으로 이루어져야한다.
+
+    async function getData () {
+        let rawData = await fetch('https://jsonplaceholder.typicode.com/posts');
+        let jsonData = await rawData.json();
+        
+        return jsonData;
+    }
+
+    console.log(getData());
+
+    // .then((response) => response.json());
+    // .then((json) => console.log(json));
+    
+</script>
+<body>
+    2강, 자바스크립트 심화
+</body>
+</html>

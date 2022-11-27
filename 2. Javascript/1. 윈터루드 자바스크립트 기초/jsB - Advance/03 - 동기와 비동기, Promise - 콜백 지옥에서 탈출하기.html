@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jsAdvance03</title>
+</head>
+<script>
+    // 동기와 비동기.
+    // 동기 : 순차적으로 실행.
+    // 코드의 작성 순서대로 작업을 처리한다. 하나에 스레드에서 하나의 작업을 실행하는 동안 뒤의 작업은 실행되지 않고 기다린다. -> 블로킹 방식.
+    
+    // 비동기 : 비순차적으로 실행.
+    // 앞의 작업에 필요한 시간이 많다 -> 전체적인 흐름이 느려진다. => 동기 방식의 단점.
+    // 이를 해결하는 방식 중 하나가 멀티쓰레드이지만 자바스크립트에서는 오직 싱글쓰레드만 지원한다.
+    // 그렇기에 자바스크립트에서 나온 해결방식은 싱글쓰레드를 이용하여 다수의 작업을 동시에 개시하도록 하는 것. 논 블로킹 방식.
+    // 앞 코드의 작업이 끝나지 않더라도 뒤 코드의 작업을 동시에 가동시키는 것.
+
+    // taskA((result) => {
+    //     console.log(`작업 종료. 결과 : ${result}`);
+    // });
+
+    // taskB((result) => {
+    //     console.log(`작업 종료. 결과 : ${result}`);
+    // });
+
+    // taskC((result) => {
+    //     console.log(`작업 종료. 결과 : ${result}`);
+    // });
+
+    // 동기 방식.
+    // console.log('프로그램 시작.');
+
+    // function taskA () {
+    //     console.log(`작업 종료.`);
+    // }
+
+    // taskA();
+    // console.log('프로그램 종료.');
+
+    // 프로그램 시작.
+    // 작업 종료.
+    // 프로그램 종료.
+
+    // 비동기 방식.
+    // console.log('프로그램 시작');
+
+    let a = 0;
+
+    function taskA (a, b, cbm) {
+        setTimeout(() => {
+            const res = a + b;
+            cbm(res);
+        }, 1000);
+    }
+
+    function consoleLog (props) {
+        console.log(props);
+        a = props;
+    }
+
+    function ck () {
+        setTimeout(() => {
+            console.log('a is : ' + a);
+        }, 2000);
+    }
+
+    // taskA(1, 2, consoleLog);
+    // console.log('a is : ' + a);
+    // ck();
+
+    // console.log('프로그램 종료');
+
+    // 프로그램 시작.
+    // 프로그램 종료.
+    // 작업 종료.
+
+    // 웹 개발을 하다보면 비동기 작업이 중첩되거나, 콜백 함수가 다른 콜백 함수를 호출하는 일이 잦다.
+    // 이를 방치한다면 콜백의 콜백이 계속 연결되면서 소위 '콜백 지옥'이 펼쳐질 수 밖에 없다.
+
+    // Promise - 콜백 지옥에서 탈출하기
+    // 비동기 작업의 3가지 상태 대기Pending / -> Resolve 성공Fulfilled 
+    //                                    / -> Reject 실패Rejected
+
+    function isPositive (number, resolve, reject) {
+        setTimeout(() => {
+            if (typeof number === 'number') {
+                resolve(number >= 0 ? '양수' : '음수');
+            }
+            else {
+                reject('This is not number.');
+            }
+        }, 2000);
+    };
+
+    // isPositive(1, (res) => { console.log('작업 성공 : ' + res) }, (err) => { console.log(err) });
+
+    let b = 'ok';
+
+    function isPositivePromise (number) {
+        const executor = (resolve, reject) => {
+            setTimeout(() => {
+                if (typeof number === 'number') {
+                    resolve(number >= 0 ? '양수' : '음수');
+                }
+                else {
+                    reject('This is not number.');
+                }
+            }, 2000);
+        };
+
+        const asyncTask = new Promise(executor);
+
+        return asyncTask;
+    };
+
+    const res = isPositivePromise(1);
+
+    res
+        .then((res) => { 
+            console.log('작업 성공 : ' + res) 
+            b = res;
+        })
+        .catch((err) => { 
+            console.log(err) 
+        });
+
+</script>
+<body>
+    2강, 자바스크립트 심화
+</body>
+</html>

@@ -1,0 +1,45 @@
+/* 상속 */
+/* 상위 요소의 스타일 속성이 하위 요소에게 넘어가는 것 */
+/* ui, ol의 경우 지정한 스타일 속상이 하위 li에게도 자동으로 적용된다. */
+/* 자동 상속 여부 확인 : https://www.w3.org/TR/CSS21/propidx.html */
+
+div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px; height: 300px;
+
+    color: orange;
+    font-size: 18px;
+    border: 3px dashed red;
+
+    /* color, font-size 속성은 p 태그로 자동 상속되었다. */
+    /* border는 상속되지 않았다. */
+}
+
+p {
+    /* 스타일 상속은 자기 자신에게 없는 속성일 경우에만 적용된다. */
+    color: initial;
+    font-size: inherit;
+    border: unset;
+
+    width: inherit;
+}
+
+.a {
+    /* 상위 요소로부터 해당 속성 값을 받는다. */
+    color: inherit;
+    /* 해당 속성의 기본값을 적용한다. */
+    color: initial;
+    /* 상속 속성은 inherit, 비상속 속성은 initial을 적용한다. */
+    color: unset;
+}
+
+/* z-index */
+/* 요소가 쌓이는 순서를 결정 */
+/* 값이 클 수록 더 앞에 위치한다. */
+
+.b {
+    z-index: 1;
+    z-index: 2;
+}

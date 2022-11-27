@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jsBasic04</title>
+</head>
+<script>
+
+    function checkMood (mood, goodCallBack, badCallBack) {
+        if(mood === 'good') {
+            goodCallBack();
+        }
+        else if(mood === 'bad') {
+            badCallBack();   
+        }
+    }
+
+    function angry() {
+        console.log('ACT : angry');
+    }
+
+    function smile() {
+        console.log('ACT : smile');
+    }
+
+    function cry() {
+        console.log('ACT : cry');
+    }
+
+    function whistle() {
+        console.log('ACT : whistle');
+    }
+
+    checkMood('good', whistle, angry);
+
+</script>
+<body>
+    1강, 자바스크립트 기본
+</body>
+</html>
+
+<!-- 콜백 함수 -->
+<!-- 콜백 함수 -->
+
+<!-- 다른 함수의 매개변수로 다른 함수를 사용하는 것. -->

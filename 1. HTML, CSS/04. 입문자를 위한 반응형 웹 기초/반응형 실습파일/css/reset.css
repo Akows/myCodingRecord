@@ -1,0 +1,63 @@
+/* 개발자가 아무 설정도 하지 않더라도, 각 웹 브라우저는 기본 CSS 설정값을 가지고 있다. */
+/* 사용하는 웹 브라우저 마다 기본값이 다르기 때문에 동일한 작업 결과물이 브라우저마다 다르게 출력될 수 있는 것이다. */
+
+/* 따라서 CSS의 기본값을 제거하는 CSS Reset의 개념이 개발되었다. */
+/* CSS Reset은 여러 종류가 존재하지만 에릭 마이어가 개발한 것이 높은 평가를 받고 아직까지 사용되고 있다. */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* 유노코딩에서 추천하는 추가 Reset 속성. */
+* {
+	/* 여백이나 테두리가 증가해도 컨텐츠의 크기는 변하지 않도록. */
+	box-sizing: border-box;
+
+	/* 검색창 등지에서 focus 상태가 되면 아웃라인이 작동하는 것을 제거. */
+	outline: none;
+}
+
+/* http://meyerweb.com/eric/tools/css/reset/ 
+	v2.0 | 20110126
+	License: none (public domain)
+*/

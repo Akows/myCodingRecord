@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jsBasic03</title>
+</head>
+<script>
+
+    // function add(a, b) {
+    //     let num1 = a;
+    //     let num2 = b;
+    //     let result = num1 + num2;
+    //     console.log(result);
+    // }
+
+    // const minus = (a, b) => {
+    //     let num1 = a;
+    //     let num2 = b;
+    //     let result = num1 - num2;
+    //     return result;
+    // }
+
+    // add(1, 2);
+    // console.log(minus(2, 1));
+
+    let hi = function() {
+        return 'hi!';
+    }
+    console.log(hi);
+    const hiText = hi();
+    console.log(hiText);
+
+    console.log(bye());
+    function bye() {
+        return 'bye..';
+    }
+
+
+    let hi2 = () => {
+        return 'hi!';
+    }
+    console.log(hi2);
+    const hi2Text = hi2();
+    console.log(hi2Text);
+
+</script>
+<body>
+    1강, 자바스크립트 기본
+</body>
+</html>
+
+
+<!-- 선언된 함수는 먼저 생성되어 대기하고, 자신이 호출되면 실행된다. -->
+
+
+<!-- 전역변수와 지역변수 -->
+<!-- 변수는 선언 위치에 따라서 다른 곳에서 접근할 수 있고, 아니고가 다르다. -->
+
+
+<!-- 함수 표현식과 선언식 -->
+<!-- 함수도 비원시 자료형의 일종이다. 따라서 변수에 함수를 담는 것도 가능하다. -->
+
+<!-- 표현식, 함수를 특정 변수에 담는 것.  let hi = function() ... -->
+<!-- 선언식, 특정 변수와 상관없이 함수를 선언한다. function bye() ... -->
+
+<!-- 호이스팅, 함수 선언식으로 만들어진 함수는 코드의 위치와 상관 없이 언제나 최상단에 위치한 것으로 취급된다. -->
+<!-- 그래서 함수 호출 코드가 함수 선언 코드보다 위에 있어도 정상적으로 동작한다. -->
+
+
+<!-- 화살표 함수 let hi2 = () => ... -->
+<!-- 무명 함수를 빠르고 간결하게 만드는 문법. -->

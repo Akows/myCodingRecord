@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jsBasic05</title>
+</head>
+<script>
+    // 객체를 생성하는 방법.
+
+    // 생성자 방식
+    let sample1 = new Object();
+    // 객체 리터럴 방식
+    let sample2 = {};
+
+    // Key-value 형태의 (객체) 프로퍼티 방식
+    let a = {
+        key1: 'value1',
+        key2: 'value2'
+    };
+
+    // 객체 전체
+    console.log(a);
+    // 특정 key값을(객체 프로퍼티를) 찾는, 점 표기법
+    console.log(a.key1);
+    // 괄호 표기법, 괄호 내의 사용되는 이름은 기본적으로 '' 문자열 형태로 사용된다.
+    console.log(a['key1']);
+    // 변수를 사용한다면 문자열 형태로 사용하지 않는다.
+    const key1 = 'key1';
+    console.log(a[key1]);
+
+    // 파라미터가 동적일 경우에는 이런 방식도 사용해볼 수 있다.
+    console.log(getPropertyValue(key1));
+
+    function getPropertyValue(key) {
+        return a[key1];
+    }
+
+
+    const b = {
+        key1: 'value1',
+        key2: 'value2'
+    };
+
+    // 한번 선언된 객체에 값을 추가할 수 있다.
+    b.key3 = 'value3';
+    b['key4'] = 'value4';
+    console.log(b);
+
+    // 마찬가지의 방법으로 기존에 존재하는 객체의 값을 수정할 수 있다.
+    b.key1 = 'value';
+    b['key2'] = 'value';
+    console.log(b);
+
+    // 값을 삭제하는 방법.
+    // delete b.key1;
+    // delete b['key2'];
+    console.log(b);
+    // 다만 이는 key와 객체와의 연결을 끊는 방법으로 값 자체는 메모리에 남아있다.
+    // 그래서 아래와 같은 방법을 사용해야한다.
+    b.key1 = null;
+    b['key2'] = null;
+    console.log(b);
+
+    // 객체의 변수 종류가 const라고 해도 객체의 값을 변경할 수 있다.
+    // 객체 그 자체가 아닌 객체 내부의 값을 수정하는 행위이기 때문.
+    // 물론 객체 그 자체를 다시 선언하려거나 하는 행위는 할 수 없다. (let 객체는 가능하다)
+
+    // b = {
+    //     key: 'value'
+    // }
+
+    const c = {
+        key1: 'value1', // 객체 프로퍼티의 맴버
+        key2: 'value2', // 객체 프로퍼티의 맴버
+        say: function (name) {
+            console.log(`hi! ${name}`);
+        }, // 객체 프로퍼티의 메소드
+        say2: function () {
+            console.log(`hi! ${this.key1}`);
+        } // 객체 프로퍼티의 메소드
+    };
+
+    c.say('123');
+    c.say2();
+
+    // 객체 내부에 해당 프로퍼티가 있는지 확인하는 in 키워드
+    console.log(`${'key1' in c}`);
+    console.log(`${'key3' in c}`);
+
+
+
+</script>
+<body>
+    1강, 자바스크립트 기본
+</body>
+</html>
+

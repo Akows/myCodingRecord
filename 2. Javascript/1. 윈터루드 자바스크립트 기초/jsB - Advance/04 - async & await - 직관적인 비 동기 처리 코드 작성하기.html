@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jsAdvance04</title>
+</head>
+<script>
+    // async & await - 직관적인 비 동기 처리 코드 작성하기.
+    // async & await : promise를 더 쉽게 사용할 수 있게 도와주는 요소.
+
+    function hi () {
+        return 'hi';
+    };
+
+    function delay (ms) {
+        return new Promise((resolve) => {
+            setTimeout(resolve, ms);
+        });
+    };
+
+    // promise를 다루는 비동기 함수 async.
+    async function hiAsync () {
+        // return delay(3000)
+        //         .then(() => {
+        //             return 'hi async';
+        //         })
+
+        // 비동기 함수 앞에 사용할 경우 동기적으로 동작하게되는 await
+        // await이 사용된 코드는 완료 이전까지 뒤 코드를 동작시키지 않는다.
+        await delay(3000);
+        return 'hi async';
+    };
+
+    async function main() {
+        const res = await hiAsync();
+        console.log(res);
+    }
+
+    main();
+
+</script>
+<body>
+    2강, 자바스크립트 심화
+</body>
+</html>
