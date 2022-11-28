@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    function getTime(){
+    // 기본 생성자, 내장 생성자.
+    // 자바스크립트에서는 사용자가 만들지 않아도 기본적으로 제공해주는 생성자 함수들이 존재한다.
+    // Date는 날짜와 시간을 처리하는 다양한 메소드가 정의된 내장 생성자이다.
+    let now = new Date();
+    let year = now.getFullYear();
+
+    // Date 데이터에서 연도 값을 가져온다.
+    let month = now.getMonth() + 1;
+
+    // Date 데이터에서 날짜 값을 가져온다.
+    let date = now.getDate();
+
+    // Date 데이터에서 시간 값을 가져온다.
+    let hour = now.getHours();
+
+    // Date 데이터에서 분 값을 가져온다.
+    let minute = now.getMinutes();
+
+    // Date 데이터에서 초 값을 가져온다.
+    let second = now.getSeconds();
+
+    // Date 객체에서 Month와 Day는 0부터 시작한다.
+
+
+    month = month < 10 ? `0${month}` : month;
+    date = date < 10 ? `0${date}` : date;
+    hour = hour < 10 ? `0${hour}` : hour;
+    minute = minute < 10 ? `0${minute}` : minute;
+    second = second < 10 ? `0${second}` : second;
+
+    todayDiv.textContent = `${year}년 ${month}월 ${date}일`
+    timeDiv.textContent = `${hour}:${minute}:${second}`
+}
+
+// 정해진 시간이 경과하면 함수를 실행하는 메소드.
+setTimeout(실행함수, ms단위시간);
+
+// 주어진 시간마다 함수를 반복 실행하는 메소드.
+setInterval(실행함수, ms단위시간);
+
+// setInterval을 정지시키는 clearInterval.
+let 변수명;
+변수명 = setInterval(실행함수, ms단위시간);
+clearInterval(변수명);
+// 변수명에 setInterval을 사용하면, 이는 setInterval의 ID로 지정된다. clearInterval은 이 ID를 받아 반복을 정지시킨다.
+
+</script>
+<body>
+    
+</body>
+</html>
