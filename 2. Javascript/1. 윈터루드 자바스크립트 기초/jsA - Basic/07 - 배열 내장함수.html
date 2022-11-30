@@ -13,16 +13,25 @@
     const arr2 = [];
 
     // forEach 
+    // 전달받은 요소의 수만큼 수행.
+
+    // 모든 요소들의 갯수만큼 전달된 콜백 함수를 수행한다.
     arr.forEach((element) => console.log(element));
 
     arr.forEach(function (element) {
         arr2.push(element * 2);
     });
+
+    arr.forEach(function (element, index) {
+        // index는 0부터 자동으로 부여.
+        arr2.push(index + 1);
+    });
     
     console.log(arr2);
 
     // 배열의 데이터를 가공하여 새로운 배열에 넣는 방법.
-    // push보다 쉬운 map
+    // push보다 쉬운 map.
+    // 반환받은 결과값을 모아 새로운 배열을 생성한다.
 
     // 전체 배열을 순환하며 원하는 값으로 가공.
     const newArr = arr.map((element) => {

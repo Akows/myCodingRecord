@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    const arr = [1, 2, 3, 4, 5];
+
+    // https://tocomo.tistory.com/31
+
+    // 특정 index부터 몇 개 요소를 삭제하고 대체 요소를 주입한다.
+    arr.splice(0, 1, 6);
+    // arr = [1, 6, 3, 4, 5]
+
+    arr.splice(0, 3, 6, 7, 8);
+    // arr = [1, 6, 7, 8, 5]
+
+    // 삭제 갯수를 기입하지 않으면 그냥 추가한다.
+    arr.splice(0, 0, 9, 10);
+    // arr = [9, 10, 1, 6, 7, 8, 5]
+
+</script>
+<body>
+    
+</body>
+</html>
