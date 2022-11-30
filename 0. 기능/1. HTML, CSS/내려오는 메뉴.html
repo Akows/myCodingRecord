@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    ul, ol, li { 
+        list-style: none; 
+        margin:0; 
+        padding:0; 
+    }
+
+
+
+
+
+    .slidemenu > li { 
+        width: 80px;
+        
+        padding: 5px 10px;
+
+        display: inline-block; 
+
+        background: #eee; 
+  
+        text-align: center; 
+
+        position: relative; 
+    }
+
+    .slidemenu > li:hover { 
+        background:#fff; 
+    }
+
+    .slidemenu > li .submenu { 
+        display: none; 
+    }
+
+    .slidemenu > li:hover .submenu { 
+        display: block; 
+
+        position: absolute; 
+        
+        top: 30px; 
+
+        left: 0; 
+    }
+
+    .slidemenu > li .submenu > li { 
+        display: inline-block; 
+        width: 80px; 
+        padding: 5px 10px; 
+        background: #eee; 
+        border: 1px solid #eee; 
+        text-align: center; 
+    }
+
+    .slidemenu > li .submenu > li:hover { 
+        background:#fff; 
+    }
+</style>
+
+<body>
+    <div>
+
+
+        <ul class="slidemenu">
+            <li>
+                메뉴 이름
+                <ul class="submenu">
+                    <li>서브메뉴1</li>
+                    <li>서브메뉴2</li>
+                    <li>서브메뉴3</li>
+                </ul>   
+            </li>
+        </ul>
+
+
+    </div>
+</body>
+</html>
