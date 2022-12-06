@@ -7,7 +7,123 @@
     <title>Document</title>
 </head>
 <script>
+    // 실행 컨텍스트
+    // 어떤 코드가 그 자리에 어떤 역할을 수행하는지 이해하는 방법 -> 이 코드에 영향을 주는 주변 코드나 변수들을 파악한다.
+    // 해당 코드의 배경이 되는 조건 혹은 환경. 
+
+    // 어떤 동일한 조건과 환경을 가진 코드 뭉치가 있다면, 이들을 실행하는 데 필요한 조건과 환경적 정보가 존재한다.
+
+    // 어떤 동일한 조건과 환경을 가진.
+    // 자바스크립트에서는 전역공간, 함수, eval, module만이 위 전제를 가능하게 해준다.
+    // 전역 공간 : 코드가 실행되어 종료되는 순간까지 동시에 실행되는 전역 컨텍스트. 하나의 함수 공간이라고 보아도 좋다.
+    // module : import 되는 순간 부터 종료되는 순간까지 마찬가지로 컨텍스트가 살아있으므로 하나의 함수 공간이라고 보아도 좋다.
+
+    // = 자바스크립트에서 어떤 동일한 조건과 환경을 가진다는 것은 곧 하나의 거대한 '함수' 공간을 갖는다고 보아도 좋다. = 같은 환경내에 놓여있다. 
+
+    // 조건문과 반복문은 ES6에서 블록스코프가 도입된 이후, let 혹은 const에 대해 별개의 독립된 공간으로 역할을 하고 있다. 하지만 실행 컨텍스트가 별개로 존재하진 않는다.
+
+
+    // 콜 스택, 현재 어떤 함수가 동작 중인지 다음에 어떤 함수가 호출될 예정인지 등을 제어하는 자료구조.
+
+    // var a = 1;
+    // function outer() {
+    //     console.log('11 ' + a);
+
+    //     function inner() {
+    //         console.log('21 ' + a);
+    //         var a = 3;
+    //     }
+
+    //     inner();
+
+    //     console.log('31 ' + a);
+    // }
+
+    // outer();
+    // console.log('41 ' + a);
+
+    // 위 코드는 전역 콘텍스트가 실행되고, outer 콘텍스트가 다음, inner가 다음 순서로 스택에 쌓여 실행된다.
+    // 실행이 마치면 inner, outer, 전역 순서로 종료된다.
+
+
+    // 실행 컨텍스트 = '함수를 실행할 때 필요한 조건 혹은 환경정보'를 담은 객체.
+    // 실행 컨텍스트에서는 3가지 환경 정보가 담긴다. 
+    // VariableEnvironment, LexicalEnvironment, ThisBinding
+    // VariableEnvironment와 LexicalEnvironment은 식별자에 대한 정보를 가진다.
+    // 다만 VariableEnvironment는 식별자 정보를 수집, LexicalEnvironment은 각 식별자에 담긴 데이터를 추적한다.
+    // 또한 실행 중 값이 변화하면 LexicalEnvironment만이 그 결과를 실시간으로 반영된다.
+
+    // LexicalEnvironment - 어휘적 혹은 사전적 환경.
+    // 어떤 실행 컨텍스트가 존재한다면 내부 식별자 a의 현재 값은 무엇이다, 외부 정보는 b를 참조한다는 등의 정보를 다룬다.
+    // 실행 컨텍스트를 구성하는 환경 정보들을 모아 사전처럼 구성한 객체.
+
+    // EnvironmentRecord : 현재 컨텍스트의 식별자 정보를 다룬다. 이들이 수집되어 EnvironmentRecord에 담기는 과정을 '호이스팅'이라 한다.
+
+    // 호이스팅, 식별자 정보를 끌어올리다. 실행 컨텍스트의 가장 위로.
+
+    // 실행 컨텍스트가 실행되는 순간 가장 먼저 함수와 변수 선언문을 코드 최상단으로 끌어올려 작업을 시작한다. 그리고 이들이 EnvironmentRecord으로 수집된다.
+
+    // outerEnvironmentReference : 외부 환경LexicalEnvironment에 대한 참조.
+    // 현재 컨텍스트와 관련 있는 외부 식별자 정보.
+
+    // function inner()의 outerEnvironmentReference는 function outer()의 LexicalEnvironment를 참조한다. 그리고 function outer()의 outerEnvironmentReference는 전역 컨텍스트의 LexicalEnvironment를 참조한다.
+    // 이를 Scope Chain이라 한다.
+    // Scope : 변수의 유효 범위. 변수의 유효 범위란 곧 실행 컨텍스트에 의해 결정된다.
+
+    // 실행 컨텍스트 내부에서 어떤 값이 필요할 때.
+    // 그 값이 나에게 있다 = 그 값을 사용한다.
+    // 그 값이 나에게 없다 = Scope Chain을 타고 그 값을 찾는다.
+    // 그 값이 나에게도 있고 다음 순서에도 있다 = 나의 값을 사용한다.
+
+
+
+
+
+
+
+
+
+
+    var a = 1;
+    function outer() {
+        console.log('11 ' + a);
+
+        function inner() {
+            console.log('21 ' + a);
+            var a = 3;
+        }
+
+        inner();
+
+        console.log('31 ' + a);
+    }
+
+    outer();
+    console.log('41 ' + a);
+
+    // 1-1. 전역 실행 컨텍스트가 실행된다.
+    // 1-2. 전역 실행 컨텍스트의 LexicalEnvironment가 EnvironmentRecord에 식별자를 수집한다. var a;와 function outer() {...}.
+    // 1-3. 코드를 실행한다. 변수 a의 값 1이 할당된다.
+    // 1-4. outer 함수를 호출한다. outer의 실행 컨텍스트가 실행된다.
+
+    // 2-1. outer 실행 컨텍스트의 LexicalEnvironment가 EnvironmentRecord에 식별자를 수집한다. function inner() {...}.
+    // 2-2. 코드를 실행한다. outer 실행 컨텍스트의 EnvironmentRecord에는 a가 존재하지 않는다. 따라서 outerEnvironmentReference를 통해 상위 컨텍스트인 전역 실행 컨텍스트로 넘어가서 값을 찾는다.
+    // 2-3. 전역 실행 컨텍스트의 EnvironmentRecord에는 변수 a와 값 1이 존재한다. console.log(a);는 1이 출력된다.
+    // 2-4. inner 함수를 호출한다. inner의 실행 컨텍스트가 실행된다.
+
+    // 3-1. inner 실행 컨텍스트의 LexicalEnvironment가 EnvironmentRecord에 식별자를 수집한다. var a;.
+    // 3-2. 코드를 실행한다. inner 실행 컨텍스트의 EnvironmentRecord에는 a가 있으나 값이 존재하지 않는다. undefined.
+    // 3-3. 변수 a에 값 3을 할당한다.
+
+    // 4-1. inner 실행 컨텍스트가 종료된다.
+    // 4-2. 코드를 실행한다. outer 실행 컨텍스트의 EnvironmentRecord에는 a가 존재하지 않는다. 따라서 outerEnvironmentReference를 통해 상위 컨텍스트인 전역 실행 컨텍스트로 넘어가서 값을 찾는다.
+    // 4-3. 전역 실행 컨텍스트의 EnvironmentRecord에는 변수 a와 값 1이 존재한다. console.log(a);는 1이 출력된다.
+
+    // 5-1. outer 실행 컨텍스트가 종료된다.
+    // 5-2. 코드를 실행한다. 전역 실행 컨텍스트의 EnvironmentRecord에는 변수 a와 값 1이 존재한다. console.log(a);는 1이 출력된다.
     
+    // 6-1. 전역 실행 컨텍스트가 종료된다. 더 이상의 코드가 없으므로 자바스크립트는 프로그램을 종료한다.
+
 </script>
 <body>
     
