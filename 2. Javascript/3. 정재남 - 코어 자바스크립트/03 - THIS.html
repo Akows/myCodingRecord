@@ -7,7 +7,113 @@
     <title>Document</title>
 </head>
 <script>
+    // 실행 컨텍스트 내부에는 3개의 객체가 존재한다.
+    // VariableEnvironment, LexicalEnvironment, ThisBinding.
+
+    // ThisBinding은 실행 컨텍스트가 활성화 될 때에만 동작한다. (This를 Binding한다.)
+    // = This는 정해진 것을 가르키는 것이 아니라 함수가 호출 될 때 무엇을 가르키는지 결정된다. (호출하는 방식에 따라 다르다.)
+
+    // 전역공간에서 this.
+    // 함수 호출시 this.
+    // 메서드 호출시 this.
+    // callback 호출시 this.
+    // 생성자 호출시 this.
+
+    // 전역공간에서 this.
+    // - 전역 객체(host 객체)를 가르킨다. 브라우저 window / Node.js global
+    // - 자바스크립트가 실행되는 환경, 런타임에 따라 전역 객체의 정보는 달라진다.
+
+    // 함수 호출시 this.
+    // - 전역 객체(host 객체)를 가르킨다.
+    // - 함수를 호출하는 순간에, 함수를 실행하주는 주체는 전역 객체이다.
+    // - 다만 전역 객체가 호출하지 않는 함수에서도 this는 전역 객체를 가르킨다.
+    // - 이는 자바스크립트 자체의 버그라는 주장도 있고, 혹은 그냥 함수 호출의 특징이라는 주장도 있다.
+    // - 다만 이 것이 문제라는 의견을 반영하여 Arrow Function의 개념이 탄생하였다.
+    // - Arrow Function은 This를 Binding하지 않고 바로 상위 컨텍스트에 있는 this를 그대로 가져다 사용한다.
+
+    // 메서드 호출시 this.
+    // - 호출한 대상 객체를 가르킨다. 객체.메서드(); 라고 한다면, 메서드()의 this는 객체인 것이다. '.'을 구분점으로 삼으면 된다.
+    // - 객체.프로퍼티.메서드(); 일때 메서드();의 this는? 객체.프로퍼티를 가르킨다.
+
+    var a = {
+        b: {
+            c: function() {
+                console.log(this);
+            }
+        }
+    };
+
+    a.b.c();
+
+    // - 메서드 내부에서 함수 호출이 일어나면? 함수 호출시 this와 동일하다. 상위 컨텍스트의 호출 방식과 상관없는 것.
+
+    var num = 10; 
     
+    var object = {
+        num: 20,
+        b: function() {
+            console.log(this.num); // 20이 출력된다. object 객체의 프로퍼티 num.
+
+            function c() {
+                console.log(this.num); // 10이 출력된다. 전역 객체의 프로퍼티 num.
+                // 그런데 정확하게는 전역 객체의 프로퍼티 num가 아니라 전역변수 num을 반환받았다.
+                // 전역 변수가 전역 객체의 프로퍼티로 간주된 것이다. 
+            }
+            c();
+        }
+    };
+
+    object.b();
+
+    // - 메서드 내부 함수에서의 우회법
+    var num2 = 10; 
+    
+    var object2 = {
+        num2: 20,
+        b: function() {
+            var self = this;
+            console.log(this.num2); 
+
+            function c() {
+                console.log(self.num2);
+            }
+            c();
+        }
+    };
+
+    object2.b();
+    // - c 컨텍스트는 LexicalEnvironment에서 self를 찾는다, self가 없으니 Scope Chain을 통해 outerEnvironmentReference를 타고 상위 컨텍스트 b의 LexicalEnvironment에서 self를 찾는다.
+    // - b 컨텍스트의 LexicalEnvironment는 self가 있다. self의 this는 b를 호출한 object2. c 컨텍스트의 self.num2는 곧 b의 num2를 가르키게 된다.
+    // - 변수를 이용해서 this가 가르키는 대상을 조절할 수 있는 것이다.
+
+    // - Arrow Function은 This를 Binding하지 않고 바로 상위 컨텍스트에 있는 this를 그대로 가져다 사용한다.
+    var num3 = 10; 
+    
+    var object3 = {
+        num3: 20,
+        b: function() {
+            console.log(this.num3); 
+
+            const c = () => {
+                console.log(this.num3); // Arrow Function c는 This를 Binding하지 않고 바로 상위 컨텍스트에 있는 this를 사용하므로 b가 가르키는 것과 동일하다.
+            }
+            c();
+        }
+    };
+
+    object3.b();
+    // - 다만 Arrow Function를 사용하지 않고 ES5에서는 call이나 apply를 사용하여 동일한 효과를 얻을 수 있긴 하다.
+    // - 단, 메서드 내부 함수에서의 우회법을 더 많이 사용하고 있따.
+
+
+
+    // callback 호출시 this.
+    // - 
+   
+    // 생성자 호출시 this.
+    // - 
+
+
 </script>
 <body>
     
