@@ -22,8 +22,52 @@
     // setInterval로 넘겨진 콜백함수는 setInterval쪽에서 제어권을 넘겨받아 실행 시점을 결정한다.
 
     // 함수의 매개 변수
-    
+    var arr = [1, 2, 3, 4, 5];
+    var entries = [];
 
+    arr.forEach(function (v, i) {
+        entries.push([i, v, this[i]]);
+    }, [10, 20, 30, 40, 50]);
+
+    console.log(entries);
+
+    // 출력결과 : [0, 1, 10], [1, 2, 20], [2, 3, 30], [3, 4, 40], [4, 5, 50]    
+
+    // forEach 함수를 호출한다.
+    // 콜백 함수를 인자 1로, thisArg로 인식할 인자 2를 받는다. 인자 2는 생략이 가능하다.
+    // forEach 함수 등은 자신의 규칙에 받는 인자를 받아야 제대로 동작한다.
+
+    // this
+    // addEventListener()의 경우 this의 대상이 인자의 currentTarget이 자동으로 바인딩되어있다.
+    // (이를 변경하기 위해서는 bind() 메소드를 사용해주면 된다.)
+
+    // 결론
+    // 다른 함수의 인자로 콜백함수를 전달하게 되면, 함수는 콜백함수의 제어권을 갖게된다.
+    // 특별한 요청(bind 메소드를 사용했다 등)이 없으면, 함수는 '미리 정해진 방식'에 따라 콜백함수를 호출하게된다.
+    // 미리 정해놓은 방식 : 어느 시점에 콜백함수가 호출되는지, 인자에는 어떤 값들이 지정되어있는지, this에는 무엇이 binding되는지 등을 포함한다.
+
+    var arr2 = [1, 2, 3, 4, 5];
+    var obj = {
+        vals: [1, 2, 3],
+        logValues: function(v, i) {
+            if(this.vals) {
+                console.log(this.vals, v, i);
+            }
+            else {
+                console.log(this, v, i);
+            }
+        }
+    };
+
+    // 메소드로써 호출.
+    // logValues의 this는 'obj'이다.
+    obj.logValues(1, 2);
+    // 출력결과 : [1, 2, 3], 1, 2
+
+    // 콜백함수로 넘겨짐.
+    // logValues의 this는? 'obj'가 아니라 forEach에서 호출한 것이므로 forEach의 방식을 따른다. forEach는 함수이므로 this는 '전역객체'이다.
+    arr.forEach(obj.logValues);
+    // 출력결과 : Window {...}, 1, 2
 
 
 </script>
