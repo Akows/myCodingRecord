@@ -7,7 +7,125 @@
     <title>Document</title>
 </head>
 <script>
+    // CLOSURE
+    // 결합, 조화, 조합.
+    // 에워싸여 함께 묶여져있는 함수들.
+    // 둘러쌓인 LexicalEnvironment를 참조한다.
+    // = 내부함수와 LexicalEnvironment의 조합.
+
+    // 실행 컨텍스트 A, 내장 함수 B가 있을 때, A에서 B를 선언하게 되면.
+    // A의 LexicalEnvironment와 내부함수 B의 조합을 의미한다.
+
+    // 클로저는 함수와 생성과 함깨 매번 발생된다.
+    // 클로저 자체는 보편적인 상황으로, 클로저를 공부하는 이유는 클로저에서 발생하는 '특별한 현상'을 알아야하기 때문이다.
+
+    // A-B의 관계에서 서로가 연관되어 있는 부분은 B의 outerEnvironmentReference가 A의 EnvironmentRecord를 참조했을 때 뿐이다.
+    // 그렇다면 클로저란 실행 컨텍스트 A에서 선언된 변수가 내부함수 B에서 참조되었을 경우에만 발생하는 '특별한 현상'이라고 정리할 수 있다.
+
+    // 특별한 현상.
+    var outer = function() {
+        var a = 1;
+        var inner = function() {
+          console.log(++a);  
+        };
+        inner();
+    };
+    outer();
+
+    // 1. 전역 실행 컨텍스트 생성.
+    // 2. outer 실행 컨텍스트 생성.
+    // outer 실행 컨텍스트에는 LexicalEnvironment가 있고, 그 안에는 EnvironmentRecord와 outerEnvironmentReference가 존재한다.
+    // EnvironmentRecord에는 a = 1, inner: f가 담긴다.
+    // outerEnvironmentReference에는 전역 실행 컨텍스트의 LexicalEnvironment가 담긴다. 여기에는 outer: f가 담겨져있다.
     
+    // 3. inner 실행 컨텍스트 생성.
+    // inner 실행 컨텍스트에는 LexicalEnvironment가 있고, 그 안에는 EnvironmentRecord와 outerEnvironmentReference가 존재한다.
+    // EnvironmentRecord에는 아무 값도 존재하지 않는다.
+    // outerEnvironmentReference에는 outer 실행 컨텍스트의 LexicalEnvironment를 참조한다. 여기에는 a = 1, inner: f가 담겨져있다.
+
+    // 4. inner 실행 컨텍스트 제거.
+    // 5. outer 실행 컨텍스트 제거.
+    // 6. 전역 실행 컨텍스트 제거.
+    
+    var outer2 = function() {
+      var a = 1;
+      var inner2 = function() {
+        return ++a;
+      };  
+      return inner;
+    };
+    var outer22 = outer();
+    console.log(outer22);    
+    console.log(outer22);
+
+    // 이 코드에서는 실행 컨텍스트의 생성과 제거가 순차적이지 않다.
+    // return 키워드의 사용으로 인해 outer2 실행 컨텍스트의 EnvironmentRecord 내부 변수 a가 계속 남아있기 때문.
+    // 실행 컨텍스트 outer에서 선언된 변수 a는 내부함수 inner2에서 참조되고 있다.
+    // 그런데 내부함수 inner2가 외부로 전달될 경우 실행 컨텍스트 outer가 사라졌음에도 내부 변수 a는 계속 잔존한다.
+    // 이것이 클로저의 '핵심개념'이다.
+
+    // 클로저의 의하여 지역 변수가 함수 종류 이후에도 '사라지지 않도록' 만들 수 있다!
+    // 이것이 클로저의 가장 큰 의의이다.
+
+
+
+
+    function user(_name) {
+      var _logged = true;
+      
+      return {
+        get name() {return _name },
+        set name(v) { _name = v },
+        login() { _logged = true },
+        logout() { _logged = false },
+        get status() {
+            return _logged ? 'login' : logout;
+        },
+      }
+    };
+
+    var roy = user('유승');
+
+    console.log(roy.name); 
+    // 출력결과 : '유승'
+    // name 프로퍼티가 없지만, get name() {...}이 호출된다.
+    // user('유승')의 user(_name) -> _name은 user 함수 내부에서 선언된 변수. 원래대로면 user 함수의 실행 컨텍스트가 종료되면서 같이 사라져야하지만.
+    // return 키워드롤 사용하여 해당 변수가 외부로 빠져나가기 때문에 변수는 사라지지않고 살아남게된다.
+
+    roy.name = '유범';
+    console.log(roy.name);
+    // 출력결과 : '유범'
+    // name 프로퍼티가 없지만, set name(v) {...}이 호출된다. 
+
+    roy._name = '유범';
+    console.log(roy.name);
+    // 출력결과 : '유승'
+    // _name은 user 함수에서 생성되는 프로퍼티이지 user 함수로 인해 생성된 roy의 프로퍼티가 아니다.
+    // 따라서 roy 내부에 _name 변수가 새롭게 생성될 뿐이다.
+
+    console.log(roy.status);
+    // 출력결과 : true
+    // user 함수 내부의 _logged 변수에 따라 결과값을 가져온다.
+    // _logged 변수도 마찬가지로 사라지지않고 살아남는 변수가 되는 것이다.
+
+    roy.logout();
+    roy.status = true;
+    console.log(roy.status);
+    // 출력결과 : false
+    // status에는 setter가 없으므로 true 할당 명령은 무시된다.
+    // 외부에서 내부 변수에 접근하기 위한 방법이 제한된다는 것. 이를 캡슐화라고 한다.
+
+
+
+    // 이번 강의에서 알아야할 점.
+    // 1. 함수 종료 이후에도 변수의 값을 유지한다 - 클로저의 핵심 개념.
+    // 2. 외부로부터 내부 변수를 보호하는 방법 (캡슐화).
+
+    // 나중에 알아야하는 점.
+    // 1. 클로저의 의한 메모리 누수를 관리하는 방법.
+    // 2. 클로저를 활용한 다양한 프로그래밍 기법.
+    // 등등..
+
 </script>
 <body>
     
