@@ -81,6 +81,78 @@
     // Constructor.prototype.constructor
 
 
+
+
+
+    // 메서드 상속 및 동작 원리
+    var lee = new Person('이', 10);
+    var choi = new Person('최', 10);
+
+    lee.setOlder = function() {
+        this.age += 1;
+    }
+    lee.getAge = function() {
+        return this.age;
+    }
+    choi.setOlder = function() {
+        this.age += 1;      
+    }
+    lee.getAge = function() {
+        return this.age;  
+    }
+
+    // 두 인스턴스과 나이 값을 조정하는 메서드, 나이 값을 가져오는 메서드들이 존재한다.
+    // 그런데 두 인스턴스의 메서드들을 완전히 동일한 내용으로, 무의미한 반복이 거듭되고 있다.
+    // prototype를 이용하여 다음과 같이 반복 메서드들을 압축해보자.
+
+    Person.prototype.setOlder = function() {
+        this.age += 1;
+    }
+    Person.prototype.getAge = function() {
+        return this.age;
+    }
+
+    // 이렇게 되면 생성자 함수 Person의 prototype에 메서드들이 추가되고, 인스턴스를 만들 때마다 [[prototype]]를 통해 메서드들을 참조할 수 있게된다.
+    // 인스턴스들이 모두 동일하게 가져야하는 정보를 생성자 함수만 갖게 함으로써 메모리 사용 효율이 급격하게 높아진다. 특정 집단의 공통된 속성을 파악할 수 있게 되기도 한다.
+
+
+
+
+
+    // prototype chaining
+    // constructor생성자 함수의 prototype프로토타입 프로퍼티는 '객체'이다.
+    // 이는 결국 prototype 또한 Object 생성자 함수의 new 연산으로 생성되는 인스턴스라는 뜻이다.
+    // 그렇다면 prototype 역시, Object 생성자 함수의 prototype과 연결이 되어 있는 뜻이 된다.
+    // 모든 데이터 타입의 prototype은 Object 생성자 함수의 prototype과 '연결'되어 있는데, 이를 prototype chaining이라 칭한다.
+    // 참조 : Object 생성자 함수의 prototype에는 자바스크립트 전체를 통괄하는 공통 메서드들이 담겨져있다. toString(), valueOf() 등등..
+
+    // prototype chaining이 존재하는 이유는?
+    // Object 생성자 함수의 prototype에는 이상하게도 Object객체의 전용 메서드들이 포함되어있지 않다.
+    // prototype chaining으로 인해 Object.prototype에 담긴 내용들은 인스턴스로 '반드시' 전달되기 때문.
+    // 그렇기에 Object객체의 전용 메서드들은 Object.prototype가 아닌, Object에 포함되어있다.
+    // 그래서 객체 관련한 명령어들은 Object를 이용하여 메서드를 호출하고, 메서드의 매개변수로 객체를 넘기게 되어있다.
+
+    obj.values();
+    // 가 아니라.
+
+    Object.values(obj);
+    // 가 되는 것.
+
+    char.valueOf();
+    arr.toString();
+    // 반면 다른 데이터 타입의 경우 객체에서 메서드들을 바로 호출할 수 있다.
+
+
+
+
+
+    // 객체가 어떤 메서드를 호출한다.
+    // 1. 인스턴스는 자기 자신에게 메서드가 존재하는지 확인한다.
+    // 2. 당연히 메서드 자신에게 존재할 리가 없으므로 생성자 함수의 prototype을 참조하게 된다.
+    // 3. 만약 생성자 함수의 prototype에도 메서드가 없으면, prototype의 생성자 함수인 Object로 넘어가 Object.prototype를 살펴본다.
+    // 4. Object.prototype에도 메서드가 없으면, 에러가 발생한다.
+    // 자기 자신을 시작으로 가장 가까운 곳부터 살펴보는 Scope Chain과 같은 개념으로 동작하는 것이다.
+
 </script>
 <body>
     
