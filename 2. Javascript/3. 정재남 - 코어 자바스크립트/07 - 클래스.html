@@ -7,7 +7,85 @@
     <title>Document</title>
 </head>
 <script>
+    // 클래스class.
+    // 계급, 집단, 집합. 공통적인 속성을 모아 한데 묶은 덩어리.
+
+    // 클래스class와 인스턴스instance.
+    // 해당 클래스의 속성을 지닌 구체적인 객체.
+
     
+
+    // 사과, 바나나, 감 등은 모두 과일이다.
+    // 과일은 음식의 한 종류이다.
+    // 사과, 바나나, 감 등은 과일이면서 음식이다.
+
+    // 음식과 과일은 실질적인 형태가 없는 추상적인 개념이다.
+    // 사과, 바나나, 감 등은 실질적인 형태가 있는 구체적인 물체이다.
+
+    // 음식과 과일은 클래식, 사과/바나나/감 등을 인스턴스라고 비유할 수 있다.
+
+
+
+    // 프로그래밍에서 추상적인 개념이란 이미 정의되어 있는 개념이 아니다.
+    // 추상적인 개념을 정의해야만, 그 하위에 위치한 구체적인 물체를 정의할 수 있다.
+
+    // 위에서 비유한 과일 이야기에서 음식은 상위 클래스, 과일은 하위 클래스의 위치에 있다.
+    // 여기서 음식은 Superclass, 과일은 Subclass라고 칭한다.
+
+
+
+    // Static 메서드와 Static 프로퍼티
+    // 프로토타입 프로퍼티 내부에 할당되지 않고, 생성자함수에 직접 할당되어 있는 메서드와 프로퍼티들.
+    // 생성자함수를 new 연산자 없이 함수로써 호출할 때만 의미가 있는 값들에 속한다.
+    // 인스턴스의 개별적인 동작이 아닌, 소속 여부 확인 및 부여 등의 공동체적 판단을 필요로 할 때 사용된다.
+    // 프로토타입 내부의 정의된 메서드들은 '프로토타입 메서드'라고 불리운다. 통상적으로 그냥 '메서드'라고 축약되어 표시된다.
+
+    // 이 2가지 개념은 인스턴스에서 직접 접근이 가능한지 여부가 갈린다.
+    // '프로토타입 메서드'는 [[Prototype]]으로 연결되어 이것이 곧 인스턴스와 겹쳐 동작하면서 인스턴스에서 직접 접근이 가능하다.
+    // 반면 Static 메서드와 Static 프로퍼티들은 그렇지 않다. (단, 프로토타입의 생성자를 통해 우회하여 접근할 수는 있다. 다만 this가 인스턴스를 가리키지 않고, 정상적인 동작을 기대하기 힘들다.)
+
+
+
+    function Person(name, age) {
+        this._name = name;
+        this._age = age;
+    };
+
+    // Static 메서드
+    Person.getInformations = function(instance) {
+        return {
+            name: instance._name,
+            age: instance._age
+        };
+    };
+
+    // Prototype 메서드
+    Person.prototype.getName = function() {
+        return this._name;
+    };
+    Person.prototype.getAge = function() {
+        return this._age;
+    };
+
+    var kim = new Person('김', 10);
+    console.log(kim.getName());
+    console.log(kim.getAge());
+
+    // 위 2개 코드는 정상작동하지만 아래 코드는 에러가 발생한다.
+    // 인스턴스에서 Static 메서드에 직접 접근할 수 없기 때문.
+    console.log(kim.getInformations(kim));
+    // 따라서 아래와 같이 사용해야 에러가 발생하지 않는다.
+    // 생성자 함수에서 직접 접근해야한다.
+    console.log(Person.getInformations(kim));
+
+
+
+
+
+
+
+
+
 </script>
 <body>
     
