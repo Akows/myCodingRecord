@@ -82,6 +82,208 @@
 
 
 
+    // 클래스 상속Class inheritance
+
+    // People 클래스
+    function People(name, age) {
+        this.name = name;
+        this.age = age;
+    };
+    People.prototype.getName = function() {
+        return this.name;
+    };
+    People.prototype.getAge = function() {
+        return this.age;
+    };
+
+    // Employee 클래스
+    function Employee(name, age, position) {
+        this.name = name;
+        this.age = age;
+        this.position = position;
+    };
+    Employee.prototype.getName = function() {
+        return this.name;
+    };
+    Employee.prototype.getAge = function() {
+        return this.age;
+    };
+    Employee.prototype.getPosition = function() {
+        return this.position;
+    };
+
+    // People 클래스의 프로토타입 메소드는 Employee 클래스의 그것과 완전히 동일하다.
+    // 그렇다면 People 클래스를 Employee 클래스로 상속시킴으로써 코드의 중복성을 최소화할 수 있다.
+
+    // 목표는 People 클래스의 삼각 도식과 Employee 클래스의 삼각 도식을 연결하는 것.
+    // 1. People 클래스의 인스턴스 위치가 Employee 클래스의 prototype 위치와 일치해야한다.
+    // -> Employee.prototype = new People();
+    // Employee.prototype에 People을 할당시키는 것이다.
+
+    // 그런데 이대로는 기존의 Employee.prototype 객체를 완전한 새로운 객체로 교체하는 것이 된다.
+    // 2. 그렇기에 일반적인 prototype과 동일한 동작을 하기 위해서는 기능을 다시 부여해주어야한다.
+    // 자바스크립트에서는 prototype 객체에 constructor 프로퍼티를 자동으로 생성해주고 있다. 그리고 constructor 프로퍼티에는 생성자 함수가 담겨있다. 이를 만들어주면 되는 것이다.
+    // -> Employee.prototype.constructor = Employee;
+
+    // 여기까지 진행하면 서로 무관계하던 2개의 클래스가 상하위 관계를 갖게된다. Superclass - Subclass 관계가 생성되는 것이다.
+
+    function People(name, age) {
+        this.name = name;
+        this.age = age;
+    };
+    People.prototype.getName = function() {
+        return this.name;
+    };
+    People.prototype.getAge = function() {
+        return this.age;
+    };
+
+    function Employee(name, age, position) {
+        this.name = name;
+        this.age = age;
+        this.position = position;
+    };
+
+    // 두 클래스에 Superclass - Subclass 관계를 생성.
+    Employee.prototype = new People();
+    Employee.prototype.constructor = Employee;
+
+    // Employee 클래스가 독자적으로 가지고 있는 메서드를 추가한다.
+    // 코드의 순서는 반드시 관계 생성 코드가 맨 처음에 와야한다.
+    Employee.prototype.getPosition = function() {
+        return this.position;
+    };
+
+
+
+
+
+    // 그런데 Employee 생성자 함수로 인스턴스를 만들때, 매개변수의 일부가 누락된다면?
+    // prototype chaining을 타고 상위 클래스에 있는 프로퍼티를 찾아 값을 가져오게 된다.
+    // 헌데 이는 추상적인 개념만을 포함해야하는 클래스의 개념에 부합하지 않는 행위에 속한다.
+
+    // 클래스 상속에서는 각 클래스의 prototype을 [[prototype]]으로 내려받는 존재가 필요한 것 뿐이다.
+    // 위와 같은 방법에서는 인스턴스 그 자체를 상속받고 있어 불필요한 프로퍼티들까지 모두 상속되고 있다.
+    // 그렇다면 People.prototype을 상속받는 별도의 인스턴스가 존재하고 그 객체에는 메소드만 상속받게 하면 된다.
+
+
+
+    // People과 Employee 사이에 이를 위한 중간 생성자 함수를 하나 만든다. 이름은 Bridge.
+    // Bridge의 prototype에 People의 prototype을 연결한 상태에서 인스턴스를 만들면 된다.
+    // 상위 클래스의 인스턴스가 아닌, prototype 그 자체를 중간 생성자 함수의 prototype으로 전달하면 되는 것이다.
+
+    function People(name, age) {
+        this.name = name;
+        this.age = age;
+    };
+    People.prototype.getName = function() {
+        return this.name;
+    };
+    People.prototype.getAge = function() {
+        return this.age;
+    };
+
+    function Employee(name, age, position) {
+        this.name = name;
+        this.age = age;
+        this.position = position;
+    };
+
+    // 중간 지점을 위한 빈 생성자 함수 Bridge.
+    // 아무런 프로퍼티를 생성하지 않는 비어있는 생성자 함수이다.
+    function Bridge() {
+        
+    };
+
+    // 징검다리를 이용한 완전한 클래스 상속 방법.
+    // Bridge.prototype에 People.prototype을 덮어씌운다.
+    Bridge.prototype = People.prototype;
+
+    // 이전과 동일한 방법으로 하위 클래스의 상속 관계를 생성한다.
+    Employee.prototype = new Bridge();
+    Employee.prototype.constructor = Employee;
+
+    // 이는 ES5에서 주로 활용된 완전한 클래스 상속 방법이다.
+    // 혹자는 아래와 같은 함수화된 방식을 제시하기도 했다.
+
+    // 1. 클로저를 이용하여 Bridge 함수를 재활용한다.
+    // 2. Superclass - Subclass 관계를 가질 생성자 함수를 매개변수로 넘긴다.
+    // 3. 완전한 상속 구조가 생성된다.
+    var extendClass = (function() {
+        function Bridge() {};
+        return function(Parent, Child) {
+            Bridge.prototype = Parent.prototype;
+            Child.prototype = new Bridge();
+            Child.prototype.constructor = Child;
+        };
+    })();
+
+    // 상속을 위한 함수를 미리 만들어 필요할 때마다 호출하여 사용한다.
+    extendClass(People, Employee);
+
+
+    // 그런데 인스턴스의 프로퍼티 역시 이를 이용하여 더 간단한 구현이 가능해진다.
+    // 상위 클래스의 프로퍼티들이 하위 클래스의 프로퍼티와 동일하다면?
+
+    function People(name, age) {
+        this.name = name;
+        this.age = age;
+    };
+
+    function Employee(name, age, position) {
+        // 동일한 프로퍼티에 해당하는 부분을 다음과 같은 코드로 바꿔준다.
+        this.superClass(name, age);
+        this.position = position;
+    };
+
+
+
+    var extendClass = (function() {
+        function Bridge() {};
+        return function(Parent, Child) {
+            Bridge.prototype = Parent.prototype;
+            Child.prototype = new Bridge();
+            Child.prototype.constructor = Child;
+
+            // 아래와 같은 1줄의 코드를 추가하면 된다.
+            Child.prototype.superClass = Parent;
+        };
+    })();
+
+    extendClass(People, Employee);
+
+    var Lee = new Employee('이철수', 20, '사원');
+
+    // 생성자 함수 내부의 this는 인스턴스를 가르킨다.
+    // 인스턴스에는 superClass 메소드가 없다. 따라서 prototype chaining를 타고 Employee 생성자 함수로 넘어간다.
+    // 
+
+
+    // 그런데 ES6 이후에는 개발자가 클래스 상속을 위한 함수를 직접 구현할 필요가 없다. 자바스크립트에서 내장함수로 지원해주기 때문.
+
+    class People {
+        constructor (name, age) {
+            this.name = name;
+            this.age = age;
+        };
+        getName() {
+            return this.name;
+        };
+        getAge() {
+            return this.age;
+        };
+    };
+
+    // extends 키워드로 간단하게 상속이 가능하다.
+    class Employee extends People {
+        constructor (name, age, position) {
+            super(name, age);
+            this.position = position;
+        };
+        getPosition() {
+            return this.position;
+        };
+    };
 
 
 
