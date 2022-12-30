@@ -3,7 +3,7 @@ import './Home.css';
 import { useEffect, useState } from 'react';
 
 import { initializeApp } from 'firebase/app';
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 
 const firebaseConfig = {
     apiKey: 'AIzaSyDeDmKlMRVrir6S8le_7Iwc0RVNC9eYQ28',
@@ -49,6 +49,14 @@ const Home = () => {
           });
     };  
 
+    const logoutEvent = () => {
+        signOut(auth).then(() => {
+            alert('로그아웃');
+        }).catch((error) => {
+            console.log(error);
+        });
+    }; 
+
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
           if (user) {
@@ -80,11 +88,9 @@ const Home = () => {
                 <div className='loginbutton' onClick={loginEvent}> 
                     로그인 
                 </div>
-
-                <div onClick={loginEvent}> 
-                    로그인 확인
+                <div className='loginbutton' onClick={logoutEvent}> 
+                    로그아웃
                 </div>
-
             </div>
         </>
     )
