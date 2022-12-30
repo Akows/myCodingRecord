@@ -1,28 +1,14 @@
 import './Home.css';
 
-import { useEffect, useState } from 'react';
-
-import { initializeApp } from 'firebase/app';
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
-
-const firebaseConfig = {
-    apiKey: 'AIzaSyDeDmKlMRVrir6S8le_7Iwc0RVNC9eYQ28',
-    authDomain: 'loginanddatabase-132d3.firebaseapp.com',
-    projectId: 'loginanddatabase-132d3',
-    storageBucket: 'loginanddatabase-132d3.appspot.com',
-    messagingSenderId: '713946772803',
-    appId: '1:713946772803:web:7faa48d1e6d7b01ba4abf6'
-};
-  
-const app = initializeApp(firebaseConfig);
-const auth = getAuth();
+import { useContext, useState } from 'react';
+import { contextAPI } from '../App';
 
 const Home = () => {
 
     // admin@admin.com
     // admin1234
 
-    const [isLogin, setIsLogin] = useState(false);
+    const context = useContext(contextAPI);
 
     const [inputData, setInputData] = useState({
         ID: '',
@@ -37,7 +23,7 @@ const Home = () => {
     };
 
     const loginEvent = () => {
-        signInWithEmailAndPassword(auth, inputData.ID, inputData.PWD)
+        context.signInWithEmailAndPassword(context.auth, inputData.ID, inputData.PWD)
           .then((userCredential) => {
             const user = userCredential.user;
             console.log(user);
@@ -50,26 +36,12 @@ const Home = () => {
     };  
 
     const logoutEvent = () => {
-        signOut(auth).then(() => {
+        context.signOut(context.auth).then(() => {
             alert('로그아웃');
         }).catch((error) => {
             console.log(error);
         });
     }; 
-
-    useEffect(() => {
-        onAuthStateChanged(auth, (user) => {
-          if (user) {
-            setIsLogin(user);
-          }
-          else {
-            setIsLogin(false);
-          }
-        });
-        console.log(auth);
-        console.log(isLogin);
-        // eslint-disable-next-line
-      }, []);
 
     return (
         <>
