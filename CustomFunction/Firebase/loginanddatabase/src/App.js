@@ -32,35 +32,28 @@ function App() {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setIsLogin(user);
-        console.log(isLogin);
+        console.log('yesuser');
       }
       else {
         setIsLogin(false);
+        console.log('nouser');
       }
     });
 
-    
     // eslint-disable-next-line
   }, []);
-
-  const check = () => {
-    console.log(isLogin);
-  }; 
 
   return (
 
     <contextAPI.Provider value={ {auth, signInWithEmailAndPassword, signOut, setIsLogin} }>
-
     <BrowserRouter>
       <div className='app'>
-        <div onClick={check}>dasdsadsad</div>
         <Routes>
           <Route path='/' element={<Home/>}/>
           <Route path='/db' element={<Database/>}/>
         </Routes>
       </div>
     </BrowserRouter>
-
     </contextAPI.Provider>
   );
 }

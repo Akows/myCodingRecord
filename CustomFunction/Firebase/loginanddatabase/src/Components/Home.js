@@ -36,9 +36,11 @@ const Home = () => {
     };  
 
     const logoutEvent = () => {
-        context.signOut(context.auth).then(() => {
+        context.signOut(context.auth)
+        .then(() => {
             alert('로그아웃');
-        }).catch((error) => {
+        })
+        .catch((error) => {
             console.log(error);
         });
     }; 
