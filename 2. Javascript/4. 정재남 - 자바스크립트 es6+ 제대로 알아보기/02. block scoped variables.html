@@ -7,7 +7,27 @@
     <title>Document</title>
 </head>
 <script>
-    // 
+    
+    // let과 Hoisting.
+
+    let a = 1;
+
+    function f () {
+        // console.log(a, b, c); // b, c에 대한 TDZ가 발동된다. ReferenceError
+
+        let b = 2
+        // console.log(a, b, c); // c에 대한 TDZ가 발동된다. ReferenceError
+
+        if (true) {
+            let c = 3;
+            console.log(a, b, c); // 1, 2, 3
+        }
+
+        // console.log(a, b, c);  // c에 대한 TDZ가 발동된다. ReferenceError
+    };
+
+    f();
+
 </script>
 <body>
     
