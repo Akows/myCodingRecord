@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    const setTimeinfo = () => {
+        const today = new Date();
+
+        const time = {
+            year: today.getFullYear(),  // 년도
+            month: today.getMonth() + 1, // 월
+            date: today.getDate(), // 날짜
+            // hours: today.getHours(), // 시간
+            // minutes: today.getMinutes(), // 분
+        };
+
+        const now = `${time.year}년 ${time.month}월 ${time.date}일`;
+
+        return now;
+    };
+
+</script>
+<body>
+    
+</body>
+</html>
